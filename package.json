@@ -1,0 +1,21 @@
+{
+  "name": "async-u",
+  "version": "0.0.1",
+  "description": "A micro implementation of caolan/async",
+  "main": "async-u.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WebEngage/async-u"
+  },
+  "keywords": [
+    "async",
+    "callback"
+  ],
+  "author": "WebEngage",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/WebEngage/async-u/issues"
+  },
+  "homepage": "https://github.com/WebEngage/async-u#readme"
+}
