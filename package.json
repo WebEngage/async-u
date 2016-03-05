@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "A micro implementation of caolan/async",
   "main": "async-u.js",
-  "scripts": {},
+  "scripts": {
+    "test": "mocha"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/WebEngage/async-u"
@@ -17,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/WebEngage/async-u/issues"
   },
-  "homepage": "https://github.com/WebEngage/async-u#readme"
+  "homepage": "https://github.com/WebEngage/async-u#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
 }
