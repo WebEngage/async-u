@@ -1,5 +1,4 @@
 
-
 function setImmediate(fn, args) {
     if (Object.prototype.toString.call(fn) === '[object Function]') {
         setTimeout(function() {
@@ -10,34 +9,31 @@ function setImmediate(fn, args) {
 
 function mapParallel(array, iteratee, callback) {
     var results = [],
-        cc = 0,
-        stop = false;
+        pending = array && array.length;
 
     function complete_ (index) {
         return function (err, result) {
-            if (stop) {
+            if (!pending || results.hasOwnProperty(index)) {
                 return;
             }
 
             if (err) {
-                stop = true;
-                setImmediate(callback, [err]);
-            } else {
-                results[index] = result;
+                pending = 0;
+                return setImmediate(callback, [err]);
+            }
 
-                cc += 1;
+            results[index] = result;
+            pending -= 1;
 
-                if (cc === array.length) {
-                    stop = true;
-                    setImmediate(callback, [null, results]);
-                }
+            if (!pending) {
+                setImmediate(callback, [null, results]);
             }
         };
     }
 
-    if (!array.length) {
+    if (!pending) {
         return setImmediate(callback, [null, results]);
-    }        
+    }
 
     for (var i = 0; i < array.length; i++) {
         // elements should be iterated over in the same order as in `array`
@@ -48,30 +44,30 @@ function mapParallel(array, iteratee, callback) {
 
 function mapSeries(array, iteratee, callback) {
     var results = [],
-        cc = 0,
-        stop = false;
+        pending = array && array.length;
 
     function complete_(index) {
         return function(err, result) {
+            if (!pending || results.hasOwnProperty(index)) {
+                return;
+            }
+
             if (err) {
-                stop = true;
-                setImmediate(callback, [err]);
+                return setImmediate(callback, [err]);
+            }
+
+            results[index] = result;
+            pending -= 1;
+
+            if (pending) {
+                setImmediate(iteratee, [array[index + 1], complete_(index + 1), result]);
             } else {
-                results[index] = result;
-
-                cc += 1;
-
-                if (cc === array.length) {
-                    stop = true;
-                    setImmediate(callback, [null, results]);
-                } else {
-                    setImmediate(iteratee, [array[cc], complete_(cc), result]);
-                }
+                setImmediate(callback, [null, results]);
             }
         };
     }
 
-    if (array.length) {
+    if (pending) {
         setImmediate(iteratee, [array[0], complete_(0)]);
     } else {
         setImmediate(callback, [null, results]);
@@ -94,6 +90,5 @@ module.exports = {
     mapParallel  : mapParallel,
     mapSeries    : mapSeries,
     parallel     : parallel,
-    series       : series,
-    setImmediate : setImmediate
+    series       : series
 };
