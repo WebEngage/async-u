@@ -11,7 +11,7 @@ The interface is identical except for these small differences
 - `series()` tasks are passed the result of their predecessor as the second argument
 
 #### The BIG question?
-Why use this module when the [original](https://github.com/caolan/async) is more comprehensive, more battle tested and might be even more efficient.
+Why use this module when the original is more comprehensive and more battle tested.
 Well the only reason is the orignal's size - at [17.6 KB uncompressed](https://github.com/caolan/async/blob/master/dist/async.min.js), it may look bloated to those who only need the four methods.
 
 #### Install
