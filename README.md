@@ -31,7 +31,7 @@ Use a [frontend module bundle](http://www.slant.co/topics/3900/~frontend-javascr
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
- Copyright (C) 2016 WebEngage <opensource {at} webengage.com>
+ Copyright (C) 2016 WebEngage <geeks {at} webengage.com>
 
  Everyone is permitted to copy and distribute verbatim or modified
  copies of this license document, and changing it is allowed as long
